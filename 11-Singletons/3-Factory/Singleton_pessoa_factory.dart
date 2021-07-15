@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class PessoaFactory {
   static final PessoaFactory instancia = PessoaFactory._construtorNomeado(
     'indefinido',
@@ -16,4 +18,28 @@ class PessoaFactory {
   PessoaFactory._construtorNomeado(this.nome) {
     // Podemos definir algumas configurações iniciais aqui.
   }
+}
+
+class PessoaInstancia {
+  /// Sem o modificador final, podemos configurar o construtor privado nomeado
+  /// dentro do construtor factory e assim passar parâmetros
+  /// ao instanciar essa classe.
+  static PessoaInstancia? _instancia; // retirar underscore para usar o singleton.
+  String? nome;
+  final int _identidade;
+
+  /// Podemos passar parâmetros para o construtor factory e tratá-los se necessário,
+  /// após retornamos o singleton com o construtor nomeado passando os mesmos parâmetros
+  /// recebidos nos construtor factory.
+  factory PessoaInstancia({String nome = 'indefinido', int? identidade}) {
+    identidade =
+        (identidade == null) ? Random().nextInt(99999999 + 1) : identidade;
+    return _instancia ??= PessoaInstancia._construtorNomeado(nome, identidade);
+  }
+
+  PessoaInstancia._construtorNomeado(this.nome, this._identidade) {
+    // Podemos definir algumas configurações iniciais aqui.
+  }
+
+  get identidade => _identidade;
 }
