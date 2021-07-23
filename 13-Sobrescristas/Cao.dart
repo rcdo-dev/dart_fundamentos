@@ -17,5 +17,34 @@ class Cao extends Mamiferos {
       {idade = 'indefinido', docil = false})
       : super.placentarios(sexo, idade, docil: docil);
 
-  // Continuar, vídeo em 9:55.
+  /// Sobrescrita do método da classe herdada (Super).
+  @override
+  void dormir() {
+    print('Dorme como um cão');
+  }
+
+  /// A palavra-chave override é opcional, se o método sobrescrito tiver o mesmo
+  /// nome do método super, o Dart identifica e sobrescreve.
+  // @override
+  void alimentar() {
+    super.alimentar(); // implementa o escopo do método herdado (super).
+    print('cão!');
+  }
+
+  /// Métodos sem escopo em classes abstratas devem ser sobrescritos.
+  @override
+  void reproduzir() {
+    print('Reproduz como um cão!');
+  }
+
+  /// Método nativo da classe.
+  void acao() {
+    print('Late como um cão');
+  }
+
+  /// Toda classe estende de Object, ao usar a função print a função toString retona (Instance of 'Object').
+  /// Então podemos sobrescrever esse método.
+  String toString() {
+    return "Instance of '${this.runtimeType}' nome: $nome raça: $raca sexo: $sexo";
+  }
 }

@@ -10,7 +10,7 @@ abstract class Mamiferos extends Animal {
   /// Podemos não passar os atributos como parâmetros obrigatórios
   /// O seu valor pode vir de uma tratativa, lodo esse atributo é
   /// um atributo derivado(que possui seu valor derivado de uma tratativa).
-  String? desenvolvimento;
+  late String desenvolvimento;
 
   Mamiferos.placentarios(this.sexo, idade, {docil})
       : super.vertebrado(idade, docil: docil) {
@@ -32,4 +32,8 @@ abstract class Mamiferos extends Animal {
     print('Se alimenta');
     print('Como um');
   }
+
+  /// Métodos sem escopo em classes abstratas devem
+  /// ser sobrescritos em classes herdeiras.
+  void reproduzir();
 }

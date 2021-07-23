@@ -4,18 +4,18 @@
 /// Esse tipo de classe não pode ser instanciada.
 abstract class Animal {
   String? idade;
-  bool? docil;
+  late bool docil;
 
   /// Podemos não passar os atributos como parâmetros obrigatórios
   /// O seu valor pode vir de uma tratativa, lodo esse atributo é
   /// um atributo derivado(que possui seu valor derivado de uma tratativa).
-  bool? coluna;
+  late bool coluna;
 
-  Animal.vertebrado(this.idade, {this.docil}) {
+  Animal.vertebrado(this.idade, {required this.docil}) {
     this.coluna = true; // valor para o atributo derivado
   }
 
-  Animal.invertebrado(this.idade, {this.docil}) {
+  Animal.invertebrado(this.idade, {required this.docil}) {
     this.coluna = false;
   }
 
