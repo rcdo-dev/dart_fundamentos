@@ -1,6 +1,7 @@
 void main() {
   print('03.1) Ternário\n');
 
+  // ignore: dead_code
   print('${!true ? 'Verdadeiro' : 'falso'}');
 
   int idade = 13;

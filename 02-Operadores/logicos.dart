@@ -22,6 +22,7 @@ main() {
 
   bool teste4 = verdadeiro && verdadeiro; // no E ambas as comparações devem ser verdadeiras para termos um retorno verdadeiro.
   bool teste5 = verdadeiro && falso; // se uma das condições for falsa o retorno será falso no E.
+  // ignore: dead_code
   bool teste6 = falso && falso;
 
   print(teste4);
