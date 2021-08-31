@@ -84,16 +84,40 @@ void main() {
   );
 
   /// Organizando a lista pela soma total.
-  vendedores.sort((b, a) => (a.vendas
-      .fold(0.0, (double anterior, atual) => anterior + atual.preco!.toDouble())
-      .compareTo(b.vendas.fold(
-          0.0, (anterior, atual) => anterior + atual.preco!.toDouble()))));
+  vendedores.sort(
+    (b, a) {
+      return (a.vendas
+          .fold(
+            0.0,
+            (double anterior, atual) => anterior + atual.preco!.toDouble(),
+          )
+          .compareTo(
+            b.vendas.fold(
+              0.0,
+              (anterior, atual) {
+                return anterior + atual.preco!.toDouble();
+              },
+            ),
+          ));
+    },
+  );
 
   /// Organizar as vendas de cada vendedor
-  vendedores.forEach((element) =>
-      element.vendas.sort((b, a) => a.preco!.compareTo(b.preco!.toDouble())));
+  vendedores.forEach(
+    (element) => element.vendas.sort(
+      (b, a) => a.preco!.compareTo(
+        b.preco!.toDouble(),
+      ),
+    ),
+  );
 
   /// Printando a lista pela soma total.
-  vendedores.forEach((element) => print(
-      'Vendedor #${element.nome} \t ${element.vendas.length} vendas \t totalizando ${element.vendas.fold(0.0, (double anterior, atual) => anterior + atual.preco!.toDouble())} \t vendas: ${element.vendas.map((e) => e.preco).toList()}'));
+  vendedores.forEach(
+    (element) => print(
+      'Vendedor #${element.nome} \t ${element.vendas.length} vendas \t totalizando ${element.vendas.fold(
+        0.0,
+        (double anterior, atual) => anterior + atual.preco!.toDouble(),
+      )} \t vendas: ${element.vendas.map((e) => e.preco).toList()}',
+    ),
+  );
 }
