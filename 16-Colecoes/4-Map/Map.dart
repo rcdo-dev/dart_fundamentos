@@ -1,116 +1,97 @@
 ///
-/// * Conceito
-/// - Map é uma coleção dinâmica e customizavel de chaves e valores.
-/// - As chaves são únicas, e os valores não se repetem.
+/// * Map:
+/// - Um Map transforma/seleciona os elementos de uma coleção
+/// criando uma nova coleção do mesmo tamanho.
 ///
 
-linkedHashMap() {
-  print('16.4.0) LinkedHashMap == Map\n');
+mapMap() {
+  print('16.4.1) Map map\n');
 
-  List<String> nomes = ['Fernando', 'Leila'];
+  /// Lista de Maps <String, dynamic>
+  /// Estrutra semelhante ao Json
+  List<Map<String, dynamic>> carrinho = [
+    {
+      'nome': 'Borracha',
+      'preco': 3.45,
+    },
+    {
+      'nome': 'Caderno',
+      'preco': 13.9,
+    },
+    {
+      'nome': 'KitLapis',
+      'preco': 41.22,
+    },
+    {
+      'nome': 'Caneta',
+      'preco': 7.5,
+    }
+  ];
 
-  /// .asMap(): Converte uma lista em Map.
-  /// A conversão tornará os índices da lista como chaves do tipo int,
-  /// e o valores serão cada valor da lista.
-  /// Saída:  {0: Fernando, 1: Leila}
-  Map<int, String> nomesMap = nomes.asMap();
-  print('$nomesMap\n');
+  /// Closure para realizar desconto no preço dos produtos.
+  dynamic porcentagem(desconto) =>
+      (valor) => desconto * valor['preco']; // Closure.
 
-  /// print do Map com loop forEach.
-  nomesMap.forEach((key, value) => print('$key: $value'));
+  /// Função para transformar em moeda brasileira.
+  final moeda =
+      (e) => 'R\$ ${e.toDouble().toStringAsFixed(2).replaceFirst('.', ',')}';
 
-  Map<String?, dynamic> frutas = Map();
+  /// Lista com uso da Closure e da função moeda.
+  List<String> precos1 = carrinho.map((porcentagem(0.9))).map(moeda).toList();
 
-  /// Dois elementos com a mesma chave terão
-  /// seus valores atualizados prevalecendo o último valor.
-  frutas['banana'] = 'amarela';
-  frutas['banana'] = 'verde';
-  frutas['goiaba'] = 'amarela';
-  frutas['macã'] = 'vermelha';
-  print('\n$frutas\n');
+  /// Lista sem uso da Closure.
+  List<String> precos2 = carrinho
+      .map((e) => e.update('preco', (value) => value * 0.9))
+      .map(moeda)
+      .toList();
 
-  /// Podemos verificar se o Map tem uma determinada chave ou valor.
-  print(frutas.containsKey('banana'));
-  print(frutas.containsValue('azul'));
+  /// Cálculo do preço médio.
+  String precoMedio = (carrinho
+              .map((e) => e['preco'])
+              .reduce((value, element) => value + element) /
+          carrinho.length)
+      .toStringAsFixed(2);
 
-  /// Podemos printar o valor de um determinada chave.
-  print(frutas['banana']);
-
-  /// A função .clear() limpa todo o conteúdo do Map.
-  frutas.clear();
-
-  /// O Map pode receber uma chave e um valor nulo desde que isso
-  /// seja permitido através do Null Safety, como o valor é dinâmico
-  /// ele aceitará o valor nulo por padrão.
-  frutas[null] = null;
-  print('$frutas\n');
-
-  ///
-  /// Funções específicas para Map.
-  ///
-
-  Map<String, dynamic> usuario = Map.from(
-    {'nome': 'Fernando', 'idade': 36, 'peso': 65.5},
+  print(
+    'Lista precos1: $precos1\nLista precos2: $precos2\nPreco Médio: $precoMedio',
   );
 
-  /// Atualiza o valor de uma determinada chave.
-  usuario.update('nome', (value) => '$value Martins');
+  /// Lista de Maps <String, Object>
+  /// A diferencça aqui é que o valor do Map pode ser qualquer objeto,
+  /// por isso temos uma lista de maps dentro da outra na chave 'alunos'.
+  List<Map<String, Object>> escola = [
+    {
+      'nome': 'Turma T1',
+      'alunos': [
+        {
+          'nome': 'Fernando',
+          'nota': 8.1,
+        },
+        {
+          'nome': 'Leila',
+          'nota': 9.3,
+        },
+      ],
+    },
+    {
+      'nome': 'Turma T2',
+      'alunos': [
+        {
+          'nome': 'Chloe',
+          'nota': 8.9,
+        },
+        {
+          'nome': 'Bartolomeu',
+          'nota': 7.3,
+        },
+      ],
+    },
+  ];
 
-  /// Para termos um valor atualizado devemos incrementá-lo antes.
-  usuario.update('idade', (value) => ++value);
-
-  /// Remove o valor passado conforme a operação lógica.
-  usuario.removeWhere((key, value) => key == 'peso' && value == 65.5);
-
-  /// ifAbsent: recebe uma função anônima para retorno de um valor
-  /// caso o parâmetro a ser atualizado não exista.
-  usuario.update('peso', (value) => 70, ifAbsent: () => 'indefino');
-
-  /// Insere uma chave e um valor através de um função caso estes não existam.
-  usuario.putIfAbsent('altura', () => 1.83);
-
-  /// Insere uma lista de Map no Map atual.
-  usuario.addAll({'sexo': 'masculino', 'casado': true});
-  print('$usuario\n');
-
-  /// Podemos ter acesso a todas as chaves a todos os valores de um Map.
-  print('chaves: ${usuario.keys}\nvalores: ${usuario.values}\n');
-
-  ///
-  /// Manipulação do Map com Loops
-  ///
-
-  Map<int, dynamic> numeros = {0: 'zero', 1: 'um', 2: 'dois'};
-  print('$numeros');
-
-  /// A classe MapEntry permite manipular a chave ou valor de um Map.
-  print(numeros.map((key, value) => MapEntry(key, '${value.toUpperCase()}')));
-
-  print('');
-
-  /// Loop for in
-
-  /// for in nas chaves do Map.
-  for (var chave in numeros.keys) {
-    print('for in -> chave: $chave');
-  }
-
-  print('');
-
-  /// for in nos valores do Map.
-  for (var valor in numeros.values) {
-    print('for in -> valor: $valor');
-  }
-
-  print('');
-
-  /// for in nas chaves e nos valores.
-  for (var key in numeros.keys) {
-    final valor = numeros[key];
-    print('for in: chave $key valor: ${valor.toUpperCase()}');
-  }
+  /// O map acima não foi trabalhado porque o Dart na aula estava desatualizado
+  /// comparado ao Dart de hoje.
 }
 
 void main() {
-  linkedHashMap();
+  mapMap();
 }
