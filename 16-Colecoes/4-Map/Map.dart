@@ -59,6 +59,7 @@ mapMap() {
   /// Lista de Maps <String, Object>
   /// A diferencça aqui é que o valor do Map pode ser qualquer objeto,
   /// por isso temos uma lista de maps dentro da outra na chave 'alunos'.
+  // ignore: unused_local_variable
   List<Map<String, Object>> escola = [
     {
       'nome': 'Turma T1',
